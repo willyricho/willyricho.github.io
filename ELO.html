@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<!-- saved from url=(0025)https://william-rich.com/ -->
+<html>
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="preconnect" href="https://fonts.gstatic.com/">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<script src="jquery-3.6.0.min.js"></script>
+
+		<style>
+		.lefthalf{
+			left:0;
+			width:50%;
+			height: 100%;
+			position: fixed;
+  		z-index: 1;
+		}
+		.righthalf{
+			width:50%;
+			height:100%;
+			right:0;
+			position: fixed;
+  		z-index: 1;
+		}
+
+		</style>
+
+</head>
+<body>
+
+				<h1>Willy's ELO Calculator</h1>
+				<div class="lefthalf">
+				<h2>Current ELO Settings:</h2>
+					<p id="currentEloSettings">
+						ERROR
+					</p>
+				<h2>Update ELO Settings: (under construction)</h2>
+				<form>
+					<div class="ELOform">
+						<label for="startingrankinput">Player Starting Rank:</label>
+	          <input id="startingrankinput" type="text">
+						<br>
+						<label for="kfactorinput">K-factor:</label>
+	          <input id="kfactorinput" type="text">
+						<br>
+						<input id="submitELO" type="submit" value="Update Settings">
+					</div>
+				</form>
+				<h2>New Player:</h2>
+				<form>
+	        <div class="playerform">
+	          <label for="firstname">First Name:</label>
+	          <input id="firstname" type="text">
+						<br>
+						<label for="lastname">Last Name:</label>
+	          <input id="lastname" type="text">
+						<br>
+	          <input id="submitname" type="submit" value="Create Player">
+						<br>
+						<input id="forgetbutton" type="button" value="Forget Players">
+	        </div>
+	      </form>
+				<h2>New Match</h2>
+				<form>
+	        <div class="matchform">
+						<label for="matchdateinput">Match Date:</label>
+						<input type="date" id="matchdateinput" name="matchdateinput">
+						<br>
+						<label for="player1input">Player 1:</label>
+	          <select id="player1input" type="dropdown"></select>
+						<br>
+						<label for="player2input">Player 2:</label>
+	          <select id="player2input" type="dropdown"></select>
+						<br>
+						<label for="winnerinput">Winner:</label>
+	          <select id="winnerinput" type="dropdown">
+							<option value="p1">Player 1</option>
+							<option value="p2">Player 2</option>
+							<option value="draw">Draw</option>
+						</select>
+						<br>
+						<input id="submitmatch" type="button" value="Create Match">
+						<br>
+						<input id="forgetmatchesbutton" type="button" value="Forget Matches">
+						<br>
+						<p id="matchsubmitresults"></p>
+	        </div>
+	      </form>
+			</div>
+
+			<div class="righthalf">
+			<h2>Player List:</h2>
+			<p id="playerlist">
+
+			</p>
+			<h2>Match Results:</h2>
+			<table >
+				<thead>
+				
+					<th>Date</th>
+					<th>Player1</th>
+					<th>Player2</th>
+					<th>Winner</th>
+					<th>Ranking Change</th>
+				
+				</thead>
+				<tbody id="matchlist">
+
+				</tbody>
+
+			</table>
+
+			</p>
+			</div>
+
+
+
+
+
+<script>
+
+const saveELO = document.querySelector('#submitELO');
+const kFactorInput = document.querySelector('#kfactorinput');
+const startingRankInput = document.querySelector('#startingrankinput');
+const ELOformDiv = document.querySelector('.ELOform');
+const displayEloSettings = document.querySelector('#currentEloSettings');
+
+
+const playerformDiv = document.querySelector('.playerform');
+const form = document.querySelector('form');
+const firstNameInput = document.querySelector('#firstname');
+const lastNameInput = document.querySelector('#lastname');
+const createBtn = document.querySelector('#submitname');
+const forgetBtn = document.querySelector('#forgetbutton');
+const playerList = document.querySelector('#playerlist')
+
+const matchdateinput = document.querySelector('#matchdateinput');
+const player1input = document.querySelector('#player1input');
+const player2input = document.querySelector('#player2input');
+const winnerinput = document.querySelector('#winnerinput');
+const saveMatchBtn = document.querySelector('#submitmatch');
+const forgetMatchBtn = document.querySelector('#forgetmatchesbutton');
+const matchSubmitResult = document.querySelector('#matchsubmitresults');
+
+const matchTable = document.querySelector('#matchlist');
+
+var playerArray = [];
+var matchArray = [];
+var currentEloSettings = new Elosettings(1500,20);
+
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+});
+
+// run function when the 'Add player' button is clicked
+createBtn.addEventListener('click', function() {
+	var newPlayer = new Player(firstNameInput.value,lastNameInput.value,currentEloSettings.startrank);
+	playerArray.push(newPlayer);
+	// store the entered player in web storage
+  localStorage.setItem('playerStorage', JSON.stringify(playerArray));
+  nameDisplayCheck();
+});
+
+//run function when 'create match' is clicked
+saveMatchBtn.addEventListener('click', function() {
+	var date = matchdateinput.value;
+	var player1 = playerArray[player1input.value];
+	var player2 = playerArray[player2input.value];
+	var winner = winnerinput.value;
+	var text;
+
+	//validator
+	if (player1 != player2){
+		text = "Match created";
+	} else {
+		text = "Error: player 1 can't play themselves!";
+		matchSubmitResult.innerHTML = text;
+		return false;
+	}
+	matchSubmitResult.innerHTML = text;
+
+	var rankingchange = calculateRanking(player1.rank, player2.rank);
+	console.log(rankingchange);
+
+	var newMatch = new Match(date,player1,player2,winner,rankingchange);
+	matchArray.push(newMatch);
+
+	//store entered match in web storage
+	localStorage.setItem('matchStorage',JSON.stringify(matchArray));
+	matchDisplayCheck();
+});
+
+
+
+// run function when the 'Forget' button is clicked
+forgetBtn.addEventListener('click', function() {
+  // Remove the stored name from web storage
+  localStorage.removeItem('playerStorage');
+	playerArray = [];
+  // run nameDisplayCheck() to sort out displaying the
+  // generic greeting again and updating the form display
+  nameDisplayCheck();
+});
+
+//forgetting matches
+forgetMatchBtn.addEventListener('click', function() {
+  // Remove the stored name from web storage
+  localStorage.removeItem('matchStorage');
+  	matchArray = [];
+
+  matchDisplayCheck();
+});
+
+
+//calculating rank changes
+function calculateRanking(rank1,rank2){
+	
+	var rankdif = rank2 - rank1;
+	var rankratio = rankdif / 400;
+	var tentoplus1 = Math.pow(10, rankratio) + 1;
+	var expectedscore = 1/tentoplus1;
+	var rankchange = currentEloSettings.kfactor * expectedscore;
+
+	return rankchange;
+}
+
+
+// define the nameDisplayCheck() function
+function nameDisplayCheck() {
+  // check whether the 'name' data item is stored in web Storage
+  if(localStorage.getItem('playerStorage')) {
+    // If it is, display playerlist
+    let players = JSON.parse(localStorage.getItem('playerStorage'));
+		//set playerArray to equal local storage for browser session
+		playerArray = players;
+		playerList.innerHTML = "<ul>";
+		//loop through playerlist (start)
+		for (i = 0; i < players.length; i++){
+				//populate playerlist
+				playerList.innerHTML += "<li>" + playerArray[i].firstName + " " + playerArray[i].lastName +  " - " + playerArray[i].rank +"</li>"
+				//populate player 1 options
+				player1input.innerHTML += "<option value=\"" + i + "\">" + playerArray[i].firstName + "</option>"
+				//populate player 2 options
+				player2input.innerHTML += "<option value=\"" + i + "\">" + playerArray[i].firstName + "</option>"
+		} //loop end
+		playerList.innerHTML += "</ul>";
+		console.log(playerArray);
+  } else {
+			playerList.innerHTML = "No players added.";
+  }
+}
+
+function matchDisplayCheck(){
+	if (localStorage.getItem('matchStorage')){
+		
+		let matches = JSON.parse(localStorage.getItem('matchStorage'));
+		matchArray = matches;
+		console.log(matches)
+		$("#matchlist tr").remove();
+		for (i = 0; i < matches.length; i++){
+			var row = matchTable.insertRow();
+			var date = row.insertCell(0);
+			var player1 = row.insertCell(1);
+			var player2 = row.insertCell(2);
+			var winner = row.insertCell(3);
+			var rankingchange = row.insertCell(4);
+
+			date.innerHTML = matches[i].date;
+			player1.innerHTML = matches[i].player1.firstName;
+			player2.innerHTML = matches[i].player2.firstName;
+			rankingchange.innerHTML = matches[i].rankingchange;
+			
+			if (matches[i].winner.includes("p1")){
+				winner.innerHTML = matches[i].player1.firstName;
+			}else if(matches[i].winner.includes("p2")){
+				winner.innerHTML = matches[i].player1.firstName;
+			}else{
+				winner.innerHTML = "Draw"
+			}
+			
+		}
+	}else{
+	
+		$("#matchlist tr").remove();
+	}	
+}
+
+function eloSettingsCheck() {
+	if(localStorage.getItem('eloSettings')) {
+		let elosettings = localStorage.getItem('eloSettings');
+		currentEloSettings = elosettings;
+		displayEloSettings.innerHTML = "Player Starting Ranks: " + currentEloSettings.startrank + "<br>" + "K-factor: " + currentEloSettings.kfactor;
+	} else{
+		displayEloSettings.innerHTML = "Player Starting Ranks: " + currentEloSettings.startrank + "<br>" + "K-factor: " + currentEloSettings.kfactor;
+	}
+}
+
+function Player(first, last, rank) {
+  this.firstName = first;
+  this.lastName = last;
+  this.rank = rank;
+}
+
+function Elosettings(startrank, kfactor) {
+	this.startrank = startrank;
+	this.kfactor = kfactor;
+}
+
+function Match(date,player1,player2,winner,rankingchange){
+	this.date = date;
+	this.player1=player1;
+	this.player2=player2;
+	this.winner=winner;
+	this.rankingchange=rankingchange;
+}
+
+document.body.onload = eloSettingsCheck();
+document.body.onload = nameDisplayCheck();
+document.body.onload = matchDisplayCheck();
+
+var _lsTotal=0,_xLen,_x;for(_x in localStorage){ if(!localStorage.hasOwnProperty(_x)){continue;} _xLen= ((localStorage[_x].length + _x.length)* 2);_lsTotal+=_xLen; console.log(_x.substr(0,50)+" = "+ (_xLen/1024).toFixed(2)+" KB")};console.log("Total = " + (_lsTotal / 1024).toFixed(2) + " KB");
+
+console.log(_lsTotal);
+
+</script>
+
+</body>
+</html>
