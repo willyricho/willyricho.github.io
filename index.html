@@ -25,19 +25,22 @@
   width: 100%;
   padding: 5vh;
   text-align: center;
-
-  transition: height 10s, width 10s, padding 10s, visibility 10s, opacity 0.5s ease-out;
+  display: flex;
+	gap: 0.4em;
+	
+  transition: height 1s, width 1s, padding 1s, visibility 1s, opacity 0.5s ease-out;
 }
 
 .column {
   float: left;
-  width: 46%;
+
+  flex:1;
 
 }
 
 #content:after {
   content: "";
-  display: table;
+  
   clear: both;
 }
 
@@ -71,15 +74,7 @@
 	transition: all 0.3s ease;
 }
 
-.links{
-	color:#50A2C5;
-	font-weight: bold;
-	font-size: x-large;
-	font-family: 'Lato', sans-serif;
-	height:60px;
-	text-decoration: none;
-	width: 33.33%;
-}
+
 
 #mail{
 	text-align:left ;
@@ -90,7 +85,7 @@
 }
 
 #replay{
-	width:8%;
+	flex:0.2;
 }
 
 #replaybutton{
