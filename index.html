@@ -1,76 +1,184 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Under Construction</title>
-		<link rel="preconnect" href="https://fonts.gstatic.com">
-		<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-		<link rel="icon" type="image/png" href="wrench.png"/>
+<!-- saved from url=(0025)https://william-rich.com/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>William Rich</title>
+		<link rel="preconnect" href="https://fonts.gstatic.com/">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<script src="jquery-3.6.0.min.js"></script>
 		<style>
-            .ComingSoon{
-                height: 200px;
-                width: 400px;
 
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                margin-top: -100px;
-                margin-left: -200px;
-                text-align: center;
-            }
-            @keyframes bgcolor {
-                0% {
-                    background-color: #45a3e5
-                }
+#myVideo {
+	object-fit: cover;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
 
-                50% {
-                    background-color: #66bf39
-                }
+#content {
+  position: fixed;
+  bottom: 0;
 
-                100% {
-                    background-color: #ffc757
-                }
-            }
 
-            body {
-                background-color: #50A2C5;
+  width: 100%;
+  padding: 5vh;
+  text-align: center;
 
-            }
-             h1{
-                color: white;
-                font-family: 'Lato', sans-serif;
-								font-weight: bold;
-                top: 60%;
-                 font-size: 50px;
-								 margin-bottom: 0;
-							 }
-						h2{
-							color: white;
-							font-family: 'Lato', sans-serif;
-							font-weight: normal;
-							 font-size: 40px;
-							 margin-top: 0;
-						}
-            .Links{
-                height:40px;
-                width:40px;
-                fill: white;
-            }
+  transition: height 10s, width 10s, padding 10s, visibility 10s, opacity 0.5s ease-out;
+}
+
+.column {
+  float: left;
+  width: 46%;
+
+}
+
+#content:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#playbutton {
+	
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 10;
+	cursor: pointer;
+
+}
+
+.round-button {
+	box-sizing: border-box;
+	display:block;
+	width:80px;
+	height:80px;
+	padding-top: 14px;
+	padding-left: 8px;
+	line-height: 20px;
+	border: 6px solid #fff;
+	border-radius: 50%;
+	color:#f5f5f5;
+	text-align:center;
+	text-decoration:none;
+	background-color: rgba(0,0,0,0.5);
+	font-size:20px;
+	font-weight:bold;
+	transition: all 0.3s ease;
+}
+
+.links{
+	color:#50A2C5;
+	font-weight: bold;
+	font-size: x-large;
+	font-family: 'Lato', sans-serif;
+	height:60px;
+	text-decoration: none;
+	width: 33.33%;
+}
+
+#mail{
+	text-align:left ;
+}
+
+#linkedin{
+	text-align:right ;
+}
+
+#replay{
+	width:8%;
+}
+
+#replaybutton{
+	background:none;
+	border:none;
+    margin:0;
+
+    cursor: pointer;
+	color:#50A2C5;
+	font-weight: bold;
+	font-size: x-large;
+	font-family: 'Lato', sans-serif;
+	height:40px;
+	
+}
+
+
+
+
+
 
 		</style>
-	</head>
+<body>
+
+<video playsinline muted id="myVideo">
+	<source src="Secret Animation Video.mp4" type="video/mp4">
+</video>
+
+<div id="playbutton">
+	<i class="fa fa-play-circle" style="font-size:1500%;opacity: 0%; " onclick="playVideo(),this.style.display = 'none'"></i>
+</div>
+
+
+<div id="content">
+	<div class="column" id="linkedin">
+		<a href="https://www.linkedin.com/in/williamrich3/" class="links" ><img src="linkedin-02 Blue.png" height="40px"></a>
+	</div>
+	<div class="column" id="replay">
+		<button id="replaybutton"  onclick="replayVideo()">Replay</button>
+	</div>
+	<div class="column" id="mail">
+		<a href="mailto:wwjrich@gmail.com"class="links"><img src="Mail Blue.png" height="40px"></a>
+	</div>
+</div>
 
 
 
-    <body>
 
-        <div class="ComingSoon">
-			<h1>William Rich</h1>
-			<h2>Graphic Design</h2>
-            <a href="https://www.linkedin.com/in/williamrich3/"><img src="linkedin-02.png" alt="linkedIn Logo" class="Links" style="padding-right: 20px"></a>
-            <a href="mailto:wwjrich@gmail.com"><img src="mail-01.png" alt="Mail Symbol" class="Links"></a>
-		</div>
+<script>
 
+const introVid = document.getElementById('myVideo');
+const introVidBtn = document.getElementsByClassName("fa fa-play-circle");
+const content = document.getElementById('content');
 
+introVid.addEventListener('ended',myHandler,false);
 
-    </body>
+$(document).ready(function() {
+	$("#content").hide();
+	content.style.opacity = "0";
+})
+
+function myHandler(e){
+	$("#content").show();
+	content.style.opacity = "100%";
+}
+
+function playVideo() {
+  if (introVid.paused) {
+    introVid.play();
+  } else {
+    introVid.pause();
+  }
+}
+
+function replayVideo() {
+	if (introVid.paused) {
+	$("#content").hide();
+	content.style.opacity = "0";
+	$('#myVideo').get(0).currentTime = 0;
+	introVid.play();
+  } else {
+    introVid.pause();
+	$('#myVideo').get(0).currentTime = 0;
+	introVid.play();
+  }
+}
+
+</script>
+
+</body>
 </html>
