@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Motion Graphics Templates - William Rich</title>
+  <title>Beer Pong - William Rich</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -34,12 +34,13 @@
     Author: BootstrapMade.com
     Author URL: https://bootstrapmade.com/
   ======================================================= -->
+	
 </head>
 
 <body>
 
 
- <div class="collapse navbar-collapse custom-navmenu" id="main-navbar">
+  <div class="collapse navbar-collapse custom-navmenu" id="main-navbar">
     <div class="container py-2 py-md-5">
       <div class="row align-items-start">
         <div class="col-md-2">
@@ -70,14 +71,14 @@
     </div>
   </div>
 
-  <nav class="navbar navbar-light custom-navbar">
+<nav class="navbar navbar-light custom-navbar">
     <div class="container">
       
 	  <a class="navbar-brand" href="./">William Rich.</a>
 	  
 	  <div class="col-md-12 col-lg-6 text-left text-lg-right">	
-      	<a class="navbar-brand, navbar-links" href="./" style="color:#50A2C5">Work.</a>
-		<a class="navbar-brand, navbar-links" href="./reel">Reel.</a>	 
+      	<a class="navbar-brand, navbar-links" href="./">Work.</a>
+		<a class="navbar-brand, navbar-links" href="./reel"  style="color:#50A2C5">Reel.</a>	 
 		<a class="navbar-brand, navbar-links" href="./about">About.</a>	
         <a class="navbar-brand, navbar-links" href="./contact">Contact.</a>	
 	  </div> 	
@@ -93,50 +94,24 @@
         <div class="row mb-4 align-items-center">
           <div class="col-md-6" data-aos="fade-up">
 
-            <h2>Split-Screen Graphic Template</h2>
-            <p>Motion graphics templates are ready-to-use, customizable templates that you can integrate into your projects to create impressive animated elements.<br>
-These templates come with easy-to-use controls that can be customized to your needs in Premiere Pro.</p>
+            <h2>Motion Design Reel</h2>
+            
 
           </div>
 
 
         </div>
       </div>
-		
 
-      <div class="site-section pb-0">
+      <div class="site-section pb-0" style="padding-top: 1%">
         <div class="container">
           <div class="row align-items-stretch">
-            <div class="col-md-8" data-aos="fade-up">
-			  <img src="img/splitscreen_template.png" alt="Image" class="img-fluid">
-				<br><br>
-              <img src="video/Splitscreen.gif" alt="Image" class="img-fluid">
+            <div class="col-md-8 col-xl-12" data-aos="fade-up">
+				
+				<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/782013124?h=7e8b8eaa01&badge=0&autopause=0&player_id=0&app_id=58479/embed" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe></div>
+				
             </div>
-            <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
-              <div class="sticky-content">
-                <h3 class="h3">Split-Screen Template</h3>
-                <p class="mb-4"><span class="text-muted">Graphics Templates</span></p>
-
-                <div class="mb-5">
-                  <p>The education team at Xero produce a large scale of videos.<br>
-To assist with the video production process, I created several motion graphics templates which anyone on the team can use. <br>
-These templates can be added to any project, simply by dragging and dropping the graphic onto the timeline and customising the settings using the controllers.<br>
-<br>
-On the left is an example of one of these templates, which is a split-screen graphic animation. Users are able to modify things such as the title, background illustrations, number of bullet points and much more.</p>
-
-                </div>
-
-
-                <h4 class="h4 mb-3">What I did</h4>
-                <ul class="list-unstyled list-line mb-5">
-                  <li>Coding</li>
-                  <li>Animation</li>
-                  <li>Managing the motion graphics library</li>
-                </ul>
-				<!--
-                <p><a href="https://central.xero.com/s/guide/a5B3m000000rnHREAY/stay-on-top-of-your-cash-flow" target="_blank" class="readmore">Visit Website</a></p>-->
-              </div>
-            </div>
+       
           </div>
         </div>
       </div>
@@ -241,7 +216,7 @@ On the left is an example of one of these templates, which is a split-screen gra
 
           </div>
 
-        </div> -->
+        </div>-->
       </div> 
   </main>
   
@@ -268,7 +243,7 @@ On the left is an example of one of these templates, which is a split-screen gra
       </div>
     </div>
   </footer>
-	
+
   <!-- Vendor JS Files -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/jquery/jquery-migrate.min.js"></script>
@@ -282,6 +257,37 @@ On the left is an example of one of these templates, which is a split-screen gra
   <!-- Template Main JS File -->
   <script src="js/main.js"></script>
 
+	<script>
+		var slideIndex = 1;
+		showSlides(slideIndex);
+
+		// Next/previous controls
+		function plusSlides(n) {
+		  showSlides(slideIndex += n);
+		}
+
+		// Thumbnail image controls
+		function currentSlide(n) {
+		  showSlides(slideIndex = n);
+		}
+
+		function showSlides(n) {
+		  var i;
+		  var slides = document.getElementsByClassName("mySlides");
+		  var dots = document.getElementsByClassName("dot");
+		  if (n > slides.length) {slideIndex = 1}
+		  if (n < 1) {slideIndex = slides.length}
+		  for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		  }
+		  for (i = 0; i < dots.length; i++) {
+			dots[i].className = dots[i].className.replace(" active", "");
+		  }
+		  slides[slideIndex-1].style.display = "block";
+		  dots[slideIndex-1].className += " active";
+		}
+	</script>
+	
 </body>
 
 </html>
