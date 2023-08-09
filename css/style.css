@@ -10,7 +10,7 @@
 --------------------------------------------------------------*/
 
 body {
-  font-family: "Inconsolata", monosapce;
+  font-family: "Open Sans", monosapce;
   color: #0d1e2d;
 }
 
@@ -30,7 +30,7 @@ h4,
 h5,
 h6,
 .font-heading {
-  font-family: "Raleway", sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .site-section {
@@ -551,7 +551,7 @@ h6,
 
 
 * {box-sizing: border-box}
-body {font-family: Verdana, sans-serif; margin:0}
+body {font-family: "Open Sans", sans-serif; margin:0}
 .mySlides {display: none}
 img {vertical-align: middle;}
 
