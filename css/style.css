@@ -75,6 +75,26 @@ h6,
   background-color: #000;
 }
 
+.workSection{
+	border-top:thin;
+	border-color: #50A2C5;
+	border-top-style: solid;
+	padding-top: 5%;
+	text-align: center;
+}
+
+.workSection p{
+	text-align: justify;
+}
+
+.workSectionTop{
+	padding-bottom: 2.5%;
+}
+
+.workSectionBottom{
+	padding-bottom: 5%;
+}
+
 .item {
   border: none;
   margin-bottom: 30px;
