@@ -98,18 +98,22 @@
 		  </div>	
 		
 			<div class="container">	
-            <div class="row align-items-stretch">
-            	<div class="col-md-8 col-xl-12   workSection" data-aos="fade-up">
-                	<h2 class="h2" style="color:#50A2C5">Financial Literacy Hero Video</h2>
-					<br>
-                	<div class="mb-5">
-                  <p class="col-xl-8 offset-xl-2">The Financial Literacy initiative by Xero aimed to educate small businesses through a series of concise lessons. My role involved creating a promotional video trailer for these lessons. <br>Collaborating closely with project stakeholders, I developed the concept, designed the storyboard, and executed the animation using After Effects. The final touches were applied in Premiere for a polished result.</p>
-
-                	</div>
-
-                <p><!--<a href="#" class="readmore">Visit Website</a>--></p>
+			<div class="row justify-content-between align-items-start workSection" data-aos="fade-up">
+            	<!-- LEFT: Title + Description -->
+				<div class="col-md-7">
+                	<h1 class="h1 mb-4" style="color:#50A2C5">Financial Literacy Hero Video</h1>
+                  	<p>The Financial Literacy initiative by Xero was created to help small businesses strengthen their understanding of key financial concepts through a series of short, accessible lessons. My role was to create a hero promo video that introduced the initiative and built awareness for the lessons.
+					<br><br>
+					Working closely with project stakeholders, I developed the creative concept, designed the storyboard, and produced the full animation in After Effects. The goal was to capture attention quickly and present financial education in a way that felt clear, friendly, and engaging. I wrapped the project up in Premiere Pro with colour, pacing, and sound design refinements for a polished final result.
+					</p>
+                </div>
+				<!-- RIGHT: Project Info -->
+				 <div class="col-md-3 project-meta text-md-right">
+					<p><strong>Client</strong>Xero</p>
+					<p><strong>Year</strong>2024</p>
+					<p><strong>Role</strong>Concept Development<br>Storyboarding & Design<br>Animation (After Effects)<br>Editing and Sound Design (Premiere Pro)</p>
+				 </div>
               </div>
-            </div>
           </div>		
 		  
 		<div class="container">
@@ -296,6 +300,32 @@
 		  dots[slideIndex-1].className += " active";
 		}
 	</script>
+	<!-- Lightbox Modal -->
+	<div id="lightbox" class="lightbox">
+	  <span class="lightbox-close">&times;</span>
+	  <img class="lightbox-content" id="lightbox-img">
+	</div>
+
+	<script>
+	  // Lightbox Script
+	  document.querySelectorAll('img').forEach(img => {
+		img.addEventListener('click', () => {
+		  document.getElementById('lightbox').style.display = 'block';
+		  document.getElementById('lightbox-img').src = img.src;
+		});
+	  });
+
+	  document.querySelector('.lightbox-close').addEventListener('click', () => {
+		document.getElementById('lightbox').style.display = 'none';
+	  });
+
+	  // Close on click outside image
+	  document.getElementById('lightbox').addEventListener('click', (e) => {
+		if (e.target.id === 'lightbox') {
+		  document.getElementById('lightbox').style.display = 'none';
+		}
+	  });
+	</script>	  
 	
 </body>
 
