@@ -21,7 +21,8 @@
   var siteIstotope = function() {
 	  var $container = $('#portfolio-grid').isotope({
 	    itemSelector : '.item',
-	    isFitWidth: true
+	    layoutMode: 'fitRows',
+		percentPosition: true  
 	  });
 
 	  $(window).resize(function(){
